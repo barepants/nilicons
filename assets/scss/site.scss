@@ -38,10 +38,6 @@ ul {
   padding: 0;
 }
 
-input {
-  font-size: inherit;
-}
-
 
 .site-header {
   margin: 0 auto;
@@ -227,14 +223,15 @@ input {
 
 .icon-code {
   border: 1px solid #aaa;
-  bottom: -15px;
-  box-shadow: 0 0 15px rgba(#000, .1);
+  bottom: -18px;
+  box-shadow: 0 0 6px rgba(#000, .18);
   font-size: 12px;
-  height: 30px;
+  height: 36px;
   left: -50%;
-  line-height: 24px;
+  line-height: 18px;
   padding: 0 6px;
   position: absolute;
+  resize: none;
   width: 200%;
   z-index: 1;
 

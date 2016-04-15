@@ -5,8 +5,8 @@
   var $modeBackdrop = $('<div/>').addClass('mode-backdrop');
   var $modeOptions = $('<ul/>').addClass('mode-options');
   var queuedTimeout = {};
-  var svgTemplate = '<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">CONTENT</svg>';
-  var $iconCode = $('<input/>')
+  var svgTemplate = '<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">CONTENT\n</svg>';
+  var $iconCode = $('<textarea/>')
         .addClass('icon-code')
         .attr('readonly', true)
         .on('click', function (e) {
@@ -67,8 +67,8 @@
 
     var $iconName = $(this).find('.icon-name');
     var iconId = $(this).find('svg > use').attr('xlink:href');
-    var svgContent = $(iconId).html().trim().replace(/>\s*</g, '><')
-                                            .replace(/>\s*<\/\w+>/g, '/>');
+    var svgContent = $(iconId).html().trim().replace(/>\s*<\/\w+>/g, ' />')
+                                            .replace(/\s*</g, '\n  <');
     var svg = svgTemplate.replace('CONTENT', svgContent);
     $iconCode.val(svg).appendTo($(this)).select().focus();
 
