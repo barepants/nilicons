@@ -67,7 +67,8 @@
 
     var $iconName = $(this).find('.icon-name');
     var iconId = $(this).find('svg > use').attr('xlink:href');
-    var svgContent = $(iconId).html().trim().replace(/>\s+</g, '><');
+    var svgContent = $(iconId).html().trim().replace(/>\s*</g, '><')
+                                            .replace(/>\s*<\/\w+>/g, '/>');
     var svg = svgTemplate.replace('CONTENT', svgContent);
     $iconCode.val(svg).appendTo($(this)).select().focus();
 
