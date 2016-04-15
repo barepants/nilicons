@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Icons</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/assets/css/site.css" />
+</head>
+
+<body>
+
+  <div class="site-header">
+    <h1 class="site-title"><span class="site-title-nil">nil</span>icons</h1>
+
+    <div class="site-description">
+      <span>
+        <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons Zero</a>
+        SVG Icons
+      </span>
+    </div>
+  </div>
+
+  <div class="mode">
+    Click to
+    <div class="mode-select">
+      <span id="mode-selected"></span>
+      <svg class="mode-icon mode-icon-chevron">
+        <use xlink:href="#ni-chevron-down" />
+      </svg>
+    </div>
+  </div>
+
+  <ul class="icon-list clearfix">
+    {% for icon in icons %}
+      <li class="icon-list-item">
+        <a class="icon-list-link" href="../svg/{{ icon }}.svg" download>
+          <svg class="icon">
+            <use xlink:href="#ni-{{ icon }}" />
+          </svg>
+          <div class="icon-name">{{ icon }}</div>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <script src="//code.jquery.com/jquery-2.2.3.min.js"></script>
+  <script>
+    $.get("/sprite.svg", function (data) {
+      $(data.documentElement).hide().prependTo('body');
+    });
+  </script>
+  <script src="/assets/js/site.js"></script>
+
+
+</body>
+</html>

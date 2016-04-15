@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/assets/css/test.css" />
+</head>
+
+<body>
+
+  <a id="shuffle" href="javascript:;">shuffle</a>
+
+  {% set sizes = [16, 18, 24, 36, 48, 72] %}
+
+  {% for size in sizes %}
+    <ul class="icon-list size-{{ size }}">
+      {% for icon in icons %}
+        <li>
+          <svg class="icon">
+            <use xlink:href="#ni-{{ icon }}" />
+          </svg>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+
+  <script src="//code.jquery.com/jquery-2.2.3.min.js"></script>
+  <script>
+    $.fn.shuffle = function() {
+      var i, r, temp;
+      for (i = this.length - 1; i > 0; i--) {
+        r = Math.floor(Math.random() * (i + 1));
+        temp = this[i];
+        this[i] = this[r]
+        this[r] = temp;
+      }
+      this.appendTo(this.parent());
+    };
+
+    $('#shuffle').on('click', function() {
+      $('.icon-list').each(function() {
+        $(this).children().shuffle();
+      })
+    });
+
+    $.get("/sprite.svg", function (data) {
+      $(data.documentElement).hide().prependTo('body');
+    });
+  </script>
+
+</body>
+</html>

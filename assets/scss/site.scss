@@ -1,0 +1,251 @@
+$max-width: 630px;
+$color-dark: #444;
+$color-light: #ccc;
+$icon-list-item-width: 90px;
+
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  color: $color-dark;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; // Stole from Medium
+  font-size: 16px;
+  font-weight: 300;
+  margin: 0;
+}
+
+svg {
+  fill: currentColor;
+  vertical-align: middle;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  font-size: inherit;
+}
+
+
+.site-header {
+  margin: 0 auto;
+  max-width: $max-width + 36px;
+  padding: 84px 18px;
+
+  @media (max-width: 640px) {
+    padding-bottom: 72px;
+    padding-top: 72px;
+  }
+}
+
+.site-title {
+  font-family: inherit;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 1;
+  margin: 0;
+  text-align: center;
+
+  @media (max-width: 480px) {
+    font-size: 24px;
+  }
+}
+
+.site-title-nil {
+  color: $color-light;
+}
+
+.site-description {
+  color: $color-light;
+  font-size: 27px;
+  font-weight: 300;
+  line-height: 1;
+  padding-bottom: 3px;
+  text-align: center;
+  text-transform: lowercase;
+
+  a {
+    border-top: 2px solid rgba(#000, .06);
+    color: $color-dark;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+    padding-bottom: 0;
+  }
+}
+
+
+.mode {
+  color: $color-light;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 12px;
+  position: relative;
+  text-align: center;
+  text-transform: lowercase;
+  z-index: 2000;
+}
+
+.mode-select {
+  border-bottom: 2px solid rgba(#000, .12);
+  color: lighten($color-dark, 18);
+  cursor: pointer;
+  display: inline;
+  margin-left: -2px;
+  padding-left: 2px;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+
+  &.active {
+    border-bottom-color: transparent;
+  }
+}
+
+.mode-icon {
+  height: 18px;
+  width: 18px;
+}
+
+.mode-icon-chevron {
+  color: $color-light;
+  margin-left: -4px;
+  margin-right: -1px;
+}
+
+.mode-options {
+  display: none;
+  left: 50%;
+  margin-left: -7.5px;
+  margin-top: 2px;
+  position: absolute;
+  text-align: center;
+  top: 100%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+
+  .mode-select.active & {
+    display: block;
+  }
+}
+
+.mode-backdrop {
+  background-color: rgba(#fff, .8);
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: opacity .18s ease-out;
+  z-index: 1000;
+
+  &.fade-in {
+    opacity: 1;
+  }
+}
+
+
+.icon {
+  display: block;
+  height: 24px;
+  margin: 0 auto 6px;
+  width: 24px;
+}
+
+.icon-list {
+  margin: 0 auto;
+  max-width: $max-width;
+
+  $i: floor($max-width / $icon-list-item-width);
+  $loop: true;
+  @while $loop {
+    $breakpoint: $icon-list-item-width * $i - 1;
+    $local-max-width: $icon-list-item-width * ($i - 1);
+    @if $breakpoint < 320px {
+      // break
+      $loop: false;
+    } @else {
+      @media (max-width: $breakpoint) {
+        max-width: $local-max-width;
+      }
+    }
+    $i: $i - 1;
+  }
+}
+
+.icon-list-item {
+  float: left;
+  position: relative;
+  width: $icon-list-item-width;
+}
+
+.icon-list-link {
+  display: block;
+  padding: 21px 6px;
+  -webkit-tap-highlight-color: transparent;
+  text-align: center;
+  text-decoration: none;
+
+  .icon-list-item.active &,
+  &:hover {
+    background-color: rgba(#000, .03);
+  }
+}
+
+.icon-name {
+  color: $color-light;
+  font-size: 12px;
+  line-height: 18px;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &.dark,
+  .icon-list-item:hover &,
+  .icon-list-item.active & {
+    color: $color-dark;
+  }
+}
+
+.icon-code {
+  border: 1px solid #aaa;
+  bottom: -15px;
+  box-shadow: 0 0 15px rgba(#000, .1);
+  font-size: 12px;
+  height: 30px;
+  left: -50%;
+  line-height: 24px;
+  padding: 0 6px;
+  position: absolute;
+  width: 200%;
+  z-index: 1;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+
+.clearfix::after {
+  clear: both;
+  content: "";
+  display: block;
+}
