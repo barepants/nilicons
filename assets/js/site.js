@@ -2,7 +2,6 @@
   'use strict';
 
   var modes = ['copy SVG', 'download SVG'];
-  var selectedMode = modes[0];
   var $modeBackdrop = $('<div/>').addClass('mode-backdrop');
   var $modeOptions = $('<ul/>').addClass('mode-options');
   var queuedTimeout = {};
@@ -15,6 +14,8 @@
           e.stopPropagation();
         });
 
+  var selectedMode = Cookies.get('mode') || modes[0];
+  $('#mode-selected').text(selectedMode);
   modes.forEach(function (mode) {
     var $option = $('<li/>').text(mode).appendTo($modeOptions);
     if (mode === selectedMode) {
@@ -22,8 +23,6 @@
     }
   });
   $modeOptions.appendTo($('.mode-select'));
-
-  $('#mode-selected').text(modes[0]);
 
   $('.mode-select').on('click', function (e) {
     if ($(this).hasClass('active')) {
@@ -41,6 +40,7 @@
   $modeOptions.on('click', 'li', function () {
     selectedMode = $(this).text();
     $('#mode-selected').text(selectedMode);
+    Cookies.set('mode', selectedMode, {expires: 30});
 
     $modeOptions.children().each(function () {
       if ($(this).text() === selectedMode) {
