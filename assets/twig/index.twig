@@ -9,21 +9,31 @@
 
 <body>
 
-  <div class="site-header">
+  <ul class="links container">
+    <li class="links-item">
+      <a class="links-link" href="#usage">Usage</a>
+    </li>
+    <li class="links-item">
+      <a class="links-link" href="/sprite.svg" download>sprite.svg</a>
+    </li>
+    <li class="links-item">
+      <a class="links-link" href="https://github.com/barepants/nilicons">GitHub</a>
+    </li>
+  </ul>
+
+  <div class="site-header container">
     <h1 class="site-title"><span class="site-title-nil">nil</span>icons</h1>
 
     <div class="site-description">
-      <span>
-        <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons Zero</a>
-        SVG Icons
-      </span>
+      <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons Zero</a>
+      SVG Icons
     </div>
   </div>
 
-  <div class="mode">
+  <div class="mode container">
     Click to
     <div class="mode-select">
-      <span id="mode-selected"></span>
+      <span id="mode-selected" class="mode-selected"></span>
       <svg class="mode-icon mode-icon-chevron">
         <use xlink:href="#ni-chevron-down" />
       </svg>
@@ -43,15 +53,65 @@
     {% endfor %}
   </ul>
 
-  <script src="//code.jquery.com/jquery-2.2.3.min.js"></script>
+  <div id="usage" class="usage container">
+    <h2 class="usage-heading">Usage</h2>
+
+    <h3 class="usage-subheading">Inline SVG</h3>
+    <p>Just copy and paste SVG code to HTML:</p>
+    <pre>
+&lt;svg class="icon" ...&gt;
+  &lt;path ... /&gt;
+&lt;/svg&gt;</pre>
+
+    <h3 class="usage-subheading">Inline SVG sprites</h3>
+    <p>Load the SVG sprite using JavaScript:</p>
+    <pre>
+// With jQuery
+$.get('/path/to/sprite.svg', function (data) {
+  $(data.documentElement).hide().prependTo('body');
+});
+
+// Without jQuery
+var request = new XMLHttpRequest();
+request.open('GET', '/path/to/sprite.svg', true);
+request.onload = function () {
+  var div = '&lt;div style="display: none;"&gt;' + request.responseText + '&lt;/div&gt;';
+  document.body.insertAdjacentHTML('afterbegin', div);
+};
+request.send();</pre>
+    <p>And <code>&lt;use&gt;</code> it in HTML:</p>
+    <pre>
+&lt;svg class="icon" ...&gt;
+  &lt;use xlink:href="#ni-ICONNAME" /&gt;
+&lt;/svg&gt;</pre>
+
+    <p>You can instead reference an external sprite like this:
+
+      <pre>
+&lt;svg class="icon" ...&gt;
+  &lt;use xlink:href="<b>sprite.svg</b>#ni-ICONNAME" /&gt;
+&lt;/svg&gt;</pre>
+
+      <p>And use <a href="https://github.com/jonathantneal/svg4everybody">svg4everybody</a> to polyfill. But, <a href="https://github.com/jonathantneal/svg4everybody/issues/110">Safari has a problem</a> with it. You may just use an inline sprite and load it using JavaScript.</p>
+
+    <h3 class="usage-subheading">Coloring and sizing</h3>
+    <pre>
+.icon {
+  fill: pink; /* or fill: currentColor; */
+  width: 24px;
+  height: 24px;
+}</pre>
+
+  </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.0/js.cookie.min.js"></script>
   <script>
-    $.get("/sprite.svg", function (data) {
+    $.get('/sprite.svg', function (data) {
       $(data.documentElement).hide().prependTo('body');
     });
   </script>
   <script src="/assets/js/site.js"></script>
-
 
 </body>
 </html>

@@ -17,7 +17,8 @@
   var selectedMode = Cookies.get('mode') || modes[0];
   $('#mode-selected').text(selectedMode);
   modes.forEach(function (mode) {
-    var $option = $('<li/>').text(mode).appendTo($modeOptions);
+    var $option = $('<li/>')
+          .addClass('mode-option').text(mode).appendTo($modeOptions);
     if (mode === selectedMode) {
       $option.hide();
     }
