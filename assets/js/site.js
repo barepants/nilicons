@@ -1,11 +1,12 @@
 (function($) {
   'use strict';
 
-  var modes = ['copy SVG code', 'download SVG'];
+  var modes = ['copy SVG code', 'copy sprite <use>', 'copy icon name', 'download SVG'];
   var $modeBackdrop = $('<div/>').addClass('mode-backdrop');
   var $modeOptions = $('<ul/>').addClass('mode-options');
   var queuedTimeout = {};
   var svgTemplate = '<svg class="icon" width="24" height="24" viewBox="0 0 24 24">CONTENT\n</svg>';
+  var spriteUseTemplate = '<svg class="icon" width="24" height="24">\n  <use xlink:href="#ni-ICONNAME" />\n</svg>';
   var $iconCode = $('<textarea/>')
         .addClass('icon-code')
         .attr('readonly', true)
@@ -57,7 +58,7 @@
 
   $('.icon-list').on('click', '.icon-list-item', function (e) {
 
-    if ($('#mode-selected').text() !== 'copy SVG code') {
+    if (selectedMode === 'download SVG') {
       return;
     }
 
@@ -70,11 +71,23 @@
     e.preventDefault();
 
     var $iconName = $(this).find('.icon-name');
+    var iconName = $iconName.text();
     var iconId = $(this).find('svg > use').attr('xlink:href');
-    var svgContent = $(iconId).html().trim().replace(/>\s*<\/\w+>/g, ' />')
-                                            .replace(/\s*</g, '\n  <');
-    var svg = svgTemplate.replace('CONTENT', svgContent);
-    $iconCode.val(svg).appendTo($(this)).select().focus();
+    var textToCopy = '';
+    switch (selectedMode) {
+      case 'copy SVG code':
+        var svgContent = $(iconId).html().trim().replace(/>\s*<\/\w+>/g, ' />')
+                                                .replace(/\s*</g, '\n  <');
+        textToCopy = svgTemplate.replace('CONTENT', svgContent);
+        break;
+      case 'copy icon name':
+        textToCopy = iconName;
+        break;
+      case 'copy sprite <use>':
+        textToCopy = spriteUseTemplate.replace('ICONNAME', iconName);
+        break;
+    }
+    $iconCode.val(textToCopy).appendTo($(this)).select().focus();
 
     if (document.execCommand('copy')) {
       $iconCode.detach();
@@ -84,7 +97,7 @@
       }
       $iconName.text('copied').addClass('dark');
       queuedTimeout.fn = function () {
-        $iconName.text(iconId.replace('#ni-', '')).removeClass('dark');
+        $iconName.text(iconName).removeClass('dark');
         queuedTimeout = {};
       };
       queuedTimeout.id = setTimeout(queuedTimeout.fn, 900);
