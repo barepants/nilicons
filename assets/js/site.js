@@ -1,7 +1,7 @@
 (function($) {
   'use strict';
 
-  var modes = ['copy SVG', 'download SVG'];
+  var modes = ['copy SVG code', 'download SVG'];
   var $modeBackdrop = $('<div/>').addClass('mode-backdrop');
   var $modeOptions = $('<ul/>').addClass('mode-options');
   var queuedTimeout = {};
@@ -14,7 +14,10 @@
           e.stopPropagation();
         });
 
-  var selectedMode = Cookies.get('mode') || modes[0];
+  var selectedMode = Cookies.get('mode');
+  if (!modes.some(function (mode) {return mode === selectedMode;})) {
+    selectedMode = modes[0];
+  }
   $('#mode-selected').text(selectedMode);
   modes.forEach(function (mode) {
     var $option = $('<li/>')
@@ -54,7 +57,7 @@
 
   $('.icon-list').on('click', '.icon-list-item', function (e) {
 
-    if ($('#mode-selected').text() !== 'copy SVG') {
+    if ($('#mode-selected').text() !== 'copy SVG code') {
       return;
     }
 
