@@ -76,8 +76,15 @@
     var textToCopy = '';
     switch (selectedMode) {
       case 'copy SVG code':
-        var svgContent = $(iconId).html().trim().replace(/>\s*<\/\w+>/g, ' />')
-                                                .replace(/\s*</g, '\n  <');
+        var svgContent = $(iconId).html();
+        if (!svgContent) {
+          // Fix IE not supporting SVGElement.innerHTML
+          svgContent = $('<div/>').append(
+            $(iconId).children().clone()
+          ).html();
+        }
+        svgContent = svgContent.trim().replace(/>\s*<\/\w+>/g, ' />')
+                                      .replace(/\s*</g, '\n  <');
         textToCopy = svgTemplate.replace('CONTENT', svgContent);
         break;
       case 'copy icon name':
