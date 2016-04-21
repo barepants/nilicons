@@ -38,7 +38,7 @@ function prettySvg() {
     parser.parseString(file.contents.toString(), (err, result) => {
       obj = result;
     });
-    let builder = new xml2js.Builder({xmldec: {encoding: 'utf-8'}});
+    let builder = new xml2js.Builder({headless: true});
     let result = builder.buildObject(obj);
     file.contents = new Buffer(result + "\n");
     cb(null, file);
