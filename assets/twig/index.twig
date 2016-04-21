@@ -115,12 +115,14 @@ request.send();</pre>
   </div>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.0/js.cookie.min.js"></script>
+  <!-- devOnly -->
   <script>
     $.get('/sprite.svg', function (data) {
       $(data.documentElement).hide().prependTo('body');
     });
   </script>
+  <!-- devOnlyEnd -->
+  <script src="/assets/js/js.cookie.min.js"></script>
   <script src="/assets/js/site.js"></script>
 
 </body>

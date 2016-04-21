@@ -4,6 +4,7 @@ import fs from 'fs';
 
 import changed from 'gulp-changed';
 import gulp from 'gulp';
+import inline from 'gulp-inline';
 import livereload from 'gulp-livereload';
 import rename from 'gulp-rename';
 import replace from 'gulp-replace';
@@ -112,6 +113,17 @@ gulp.task('site:watch', () => {
         gulp.start('site:twig');
     }
   });
+});
+
+gulp.task('site:inline', ['site:twig', 'site:sass'], () => {
+  return gulp.src('index.html')
+    .pipe(replace('<body>', () => {
+      let sprite = fs.readFileSync('sprite.svg');
+      return `<body><div style="display:none;">${sprite}</div>`;
+    }))
+    .pipe(replace(/<!-- devOnly [\s\S]*? devOnlyEnd -->/, ''))
+    .pipe(inline({base: '.', disabledTypes: ['svg', 'img']}))
+    .pipe(gulp.dest('.'));
 });
 
 gulp.task('site', ['site:twig', 'site:sass']);
