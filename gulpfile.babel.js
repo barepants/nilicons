@@ -47,7 +47,7 @@ function prettySvg() {
 };
 
 function getIconNames() {
-  return fs.readdirSync('svg-src')
+  return fs.readdirSync('svg')
            .filter((name) => name.endsWith('.svg'))
            .map((name) => name.replace('.svg', ''))
            .sort();
@@ -55,14 +55,20 @@ function getIconNames() {
 
 gulp.task('svg:min', () => {
   return gulp.src('svg-src/*.svg')
+    .pipe(rename((path) => {
+      path.basename = path.basename.replace('nilicons_', '');
+      return path;
+    }))
     .pipe(changed('svg'))
-    .pipe(svgmin({js2svg: {pretty: true, indent: '  '}}))
-    .pipe(replace('<svg', '<svg width="24" height="24"'))
-    .pipe(replace(' fill-rule="nonzero"', ''))
-    .pipe(replace(' fill-rule="evenodd"', ''))
-    .pipe(replace(' clip-rule="evenodd"', ''))
-    .pipe(replace(' stroke-linejoin="round"', ''))
-    .pipe(replace(' stroke-miterlimit="1.414"', ''))
+    .pipe(svgmin({
+      js2svg: {
+        pretty: true,
+        indent: '  '
+      },
+      plugins: [
+        {removeTitle: true}
+      ]
+    }))
     .pipe(gulp.dest('svg'));
 });
 
@@ -76,7 +82,7 @@ gulp.task('svg:sprite', () => {
 
 gulp.task('svg:watch', () => {
   gulp.watch('svg-src/*.svg', (event) => {
-    if (event.type === 'deleted' || event.path.match(/Artboard\d+.svg/)) return;
+    if (event.type === 'deleted') return;
     gulp.start('svg');
   });
 });
