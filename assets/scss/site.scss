@@ -215,6 +215,8 @@ pre {
 
 
 .icon-list {
+  $max-width: $icon-list-item-width * 10;
+
   font-weight: 300;
   margin: 0 auto 108px;
   max-width: $max-width;
@@ -227,6 +229,11 @@ pre {
     @if $breakpoint < 320px {
       // break
       $loop: false;
+    } @elseif $breakpoint > 600px {
+      // possible scrollbar
+      @media (max-width: $breakpoint + 18px) {
+        max-width: $local-max-width;
+      }
     } @else {
       @media (max-width: $breakpoint) {
         max-width: $local-max-width;
