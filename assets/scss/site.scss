@@ -63,6 +63,10 @@ pre {
   display: block;
 }
 
+.hide-me-i-am-not-ready {
+  visibility: hidden;
+}
+
 .container {
   margin: 0 auto;
   max-width: $max-width + 36px;

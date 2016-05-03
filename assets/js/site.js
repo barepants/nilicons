@@ -129,4 +129,6 @@
     $iconCode.detach();
   });
 
+  $('.hide-me-i-am-not-ready').removeClass('hide-me-i-am-not-ready');
+
 })(jQuery);
