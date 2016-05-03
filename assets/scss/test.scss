@@ -33,8 +33,12 @@ svg {
 .icon-list {
   float: left;
   list-style: none;
-  margin: 0 0 10vh;
+  margin: 0 0 84px;
   padding: 0;
+
+  @media(max-width: 640px) {
+    margin-bottom: 48px;
+  }
 
   > li {
     float: left;
