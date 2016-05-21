@@ -1,5 +1,6 @@
 'use strict';
 
+import {execSync} from 'child_process';
 import fs from 'fs';
 
 import changed from 'gulp-changed';
@@ -133,6 +134,18 @@ gulp.task('site:inline', ['site:twig', 'site:sass'], () => {
 });
 
 gulp.task('site', ['site:twig', 'site:sass']);
+
+
+gulp.task('zip', (cb) => {
+  try {
+    execSync(`ln -s svg nilicons-svg &&
+              zip -FS -x '**/.*' -r nilicons-svg.zip nilicons-svg`,
+             {stdio: [0, 1, 2]});
+  } finally {
+    execSync('rm nilicons-svg');
+  }
+  cb();
+});
 
 
 gulp.task('build', ['svg', 'site']);

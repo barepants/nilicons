@@ -22,10 +22,10 @@
 
   <ul class="links container">
     <li class="links-item">
-      <a class="links-link" href="#usage">Usage</a>
+      <a class="links-link" href="#downloads">Downloads</a>
     </li>
     <li class="links-item">
-      <a class="links-link" href="/sprite.svg" download>sprite.svg</a>
+      <a class="links-link" href="#usage">Usage</a>
     </li>
     <li class="links-item">
       <a class="links-link" href="https://github.com/barepants/nilicons">GitHub</a>
@@ -64,18 +64,27 @@
     {% endfor %}
   </ul>
 
-  <div id="usage" class="usage container">
-    <h2 class="usage-heading">Usage</h2>
+  <div id="downloads" class="section container">
+    <h2 class="section-heading">Downloads</h2>
+    <ul class="slash-separated-list">
+      <li><a href="/sprite.svg" download>SVG Sprite</a></li>
+      <li><a href="/nilicons-svg.zip">SVG</a></li>
+      <li><a href="/nilicons.ai">AI</a></li>
+    </ul>
+  </div>
 
-    <h3 class="usage-subheading">Inline SVG</h3>
+  <div id="usage" class="section container">
+    <h2 class="section-heading">Usage</h2>
+
+    <h3 class="section-subheading">Inline SVG</h3>
     <p>Just copy and paste SVG code to HTML:</p>
     <pre>
 &lt;svg class="icon" ...&gt;
   &lt;path ... /&gt;
 &lt;/svg&gt;</pre>
 
-    <h3 class="usage-subheading">Inline SVG sprites</h3>
-    <p>Load the SVG sprite using JavaScript:</p>
+    <h3 class="section-subheading">Inline SVG sprites</h3>
+    <p>Load the <a href="/sprite.svg" download>SVG sprite</a> using JavaScript:</p>
     <pre>
 // With jQuery
 $.get('/path/to/sprite.svg', function (data) {
@@ -104,7 +113,7 @@ request.send();</pre>
 
     <p>And use <a href="https://github.com/jonathantneal/svg4everybody">svg4everybody</a> to polyfill. But, <a href="https://github.com/jonathantneal/svg4everybody/issues/110">Safari has a problem</a> with it. You may just use an inline sprite and load it using JavaScript.</p>
 
-    <h3 class="usage-subheading">Coloring and sizing</h3>
+    <h3 class="section-subheading">Coloring and sizing</h3>
     <pre>
 .icon {
   fill: pink; /* or fill: currentColor; */

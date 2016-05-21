@@ -67,6 +67,17 @@ pre {
   visibility: hidden;
 }
 
+.slash-separated-list {
+  > li {
+    display: inline;
+  }
+
+  > li:not(:last-child)::after {
+    color: $color-light;
+    content: " /";
+  }
+}
+
 .container {
   margin: 0 auto;
   max-width: $max-width + 36px;
@@ -307,12 +318,16 @@ pre {
 }
 
 
-.usage {
+.section {
   font-size: 15px;
-  margin-bottom: 48px;
+  margin-bottom: 72px;
   margin-top: -24px;
   padding-top: 24px;
   text-align: left;
+
+  @media (max-width: 768px) {
+    margin-bottom: 60px;
+  }
 
   a {
     font-weight: 600;
@@ -320,23 +335,25 @@ pre {
   }
 }
 
-.usage-heading {
+.section-heading {
   color: $color-mix;
-  font-size: 24px;
   font-size: 30px;
   font-weight: 300;
-  margin: 0;
-  text-align: center;
+  margin: 0 0 24px;
 
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     font-size: 18px;
     font-weight: 400;
+    margin-bottom: 12px;
   }
 }
 
-.usage-subheading {
+.section-subheading {
   font-size: 18px;
   font-weight: 400;
-  margin: 36px 0 12px;
-}
+  margin: 24px 0 12px;
 
+  @media (max-width: 768px) {
+    margin-top: 12px;
+  }
+}
